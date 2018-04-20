@@ -7,9 +7,14 @@ body {
 
 header {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 120px;
     box-shadow: 5px 5px 15px rgb(211, 211, 211);
+}
+
+.header_container {
+    display: flex;
+    flex-direction: row;
 }
 
 .start_nav {
@@ -17,12 +22,115 @@ header {
     color: black;
     font-family: 'Maven Pro', sans-serif;
     padding-right: 10px;
+    font-size: 1.2em;
 }
 
 .start_nav:hover {
     color: #a7a7a7;
 }
 
+#logo_pic {
+    margin-left: 80px;
+}
+
 .nav_container {
-    
+    margin-top: 85px;
+    margin-left: 600px;
+}
+
+footer {
+    height: auto;
+    width: auto;
+    background-color: #272727;
+}
+
+.footer_container {
+    text-align:center;
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+
+#follow_text {
+    color: white;
+    margin-bottom: 30px;
+}
+
+#link_pics {
+    margin: 20px;
+    margin-bottom: 40px;
+}
+
+#cred_text {
+    color: #757575
+}
+
+.div_container {
+    text-align: center;
+    min-height: 200px;
+}
+
+.start_header {
+    font-family: 'Oxygen';
+}
+
+.start_under_header {
+    font-family: 'Oxygen';
+}
+
+.start_divider {
+    display: flex;
+    flex-direction: column;
+    background-color: #0fbcf9;
+    height: 200px;
+    align-items: center; 
+    justify-content: center;
+}
+
+.shop_button {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff5bb0), color-stop(1, #ef027d));
+	background:-moz-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:-webkit-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:-o-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:-ms-linear-gradient(top, #ff5bb0 5%, #ef027d 100%);
+	background:linear-gradient(to bottom, #ff5bb0 5%, #ef027d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bb0', endColorstr='#ef027d',GradientType=0);
+	background-color:#ff5bb0;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #ee1eb5;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:14px 27px;
+	text-decoration:none;
+}
+
+.shop_button:hover {
+    color: #ffffff;
+}
+
+#sell_pic {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.products {
+    display: flex;
+    flex-direction: column;
+}
+
+#new_user_form {
+    margin: 50px 0px 100px 50px;
+}
+
+#back_button {
+    margin-left: 50px;
+}
+
+.signup_container {
+    margin-top: 100px;
 }
