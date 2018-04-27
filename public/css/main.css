@@ -50,6 +50,17 @@ footer {
     padding-bottom: 60px;
 }
 
+.start_first_content {
+    background-image: url("../img/start_pic.jpg");
+    background-repeat: no-repeat;
+    background-size: 1920px;
+    height: 600px;
+}
+
+.start_head_container {
+    padding-top: 200px;
+}
+
 #follow_text {
     color: white;
     margin-bottom: 30px;
@@ -66,7 +77,7 @@ footer {
 
 .div_container {
     text-align: center;
-    min-height: 200px;
+    min-height: 300px;
 }
 
 .start_header {
@@ -133,4 +144,22 @@ footer {
 
 .signup_container {
     margin-top: 100px;
+}
+
+.product_container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.start_bottom {
+    margin: 100px;
+    align-items: center;
+}
+
+#product_pic {
+    justify-content: center;
+    margin: 30px 0px 50px 0px;
+    margin-left: auto;
+    margin-right: auto;
 }

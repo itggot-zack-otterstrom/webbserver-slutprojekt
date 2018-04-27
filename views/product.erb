@@ -1,0 +1,14 @@
+<div class="product_container">
+    <img id="product_pic" src='/img/img<%= params[:id]%>.jpg' height:"300px" width="300px" >
+    <div class="product_info">
+        <h1> <%= products[1]%> </h1>
+        <h2> Produkt skapad av 
+            <% designer.each do |item| %>
+                <%="<a href='/product/#{item[0]}'>"%>
+            <%=item[1]%>
+            <%='</a>'%>
+            <% end %> 
+        </h2>
+        <h1> <%= products[2]%> kr </h1>
+    </div>
+</div>
