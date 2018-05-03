@@ -80,7 +80,9 @@ get '/start' do
 end
 
 get '/shoppa/?' do
-    erb(:shoppa)
+    db = SQLite3::Database::new("./database/db.db")
+    products = db.execute("SELECT * FROM products")
+    erb(:shoppa, locals: {products: products})
 end
 
 get '/new_user/?' do
@@ -91,7 +93,7 @@ get '/designers/:id/?' do
     db = SQLite3::Database::new("./database/db.db")
     designer = db.execute("SELECT * FROM designers WHERE id=?",[ params[:id]])
     designer = designer[0]
-    product = db.execute("SELECT product_name FROM products WHERE id IN (SELECT product_id FROM 'product_designer_relation' WHERE designer_id=?)", [ params[:id]])
+    product = db.execute("SELECT * FROM products WHERE id IN (SELECT product_id FROM 'product_designer_relation' WHERE designer_id=?)", [ params[:id]])
     erb(:designers, locals: { designers:designer, products:product })
 end
 

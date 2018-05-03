@@ -134,6 +134,10 @@ footer {
     flex-direction: column;
 }
 
+.pro{
+    margin: 50px;
+}
+
 #new_user_form {
     margin: 50px 0px 100px 50px;
 }

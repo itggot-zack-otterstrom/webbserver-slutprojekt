@@ -2,6 +2,11 @@
     <img id="sell_pic"src="#" alt="Selling picture" height="auto" width="100%">
     <h1 class="div_container">Våra produkter</h1>
     <div class="products">
-        
+        <% products.each do |item| %>
+            <%="<a href='/product/#{item[0]}'>"%>
+            <%="<img src='/img/img#{item[0]}.jpg'>"%> 
+          <%=item[1]%>
+          <%='</a>'%>
+        <% end %>
     </div>
 </div>
