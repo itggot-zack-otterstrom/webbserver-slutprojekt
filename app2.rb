@@ -18,12 +18,49 @@ post '/login' do
     real_password = db.execute("SELECT password FROM users WHERE name=?", name)
     if real_password != [] && BCrypt::Password.new(real_password[0][0]) == password
         session[:user_id] = db.execute("SELECT id FROM users WHERE name=?", name)[0][0]
-        redirect('/start')
+        session[:user_name] = db.execute("SELECT name FROM users WHERE id=?", session[:user_id])[0][0]
+        redirect('/start') 
     else
         session[:failure] = "Login failed"
         redirect('/')
     end
 end
+
+post '/logout' do
+    session[:user_id] = nil
+    session[:user_name] = nil
+    redirect ('/')
+end
+
+post '/change_name' do
+    old_name = params[:old_name]
+    new_name = params[:new_name]
+    if old_name == session[:user_name]
+        db = SQLite3::Database::new("./database/db.db")
+        db.execute("UPDATE users SET name = '#{new_name}' WHERE id=?", session[:user_id])
+        session[:user_name] = db.execute("SELECT name FROM users WHERE id=?", session[:user_id])[0][0]
+        redirect('/start')
+    else
+        redirect('/konto')
+    end
+end
+
+=begin
+post '/change_password' do
+    p old_password = params[:old_password]
+    p new_password = params[:new_password]
+    p new_password_ver = params[:new_password_ver]
+    p hashed_old_password = BCrypt::Password.create(old_password)
+    db = SQLite3::Database::new("./database/db.db")
+    p real_old_password = db.execute("SELECT password FROM users WHERE id IS ?", session[:user_id]) [0][0]
+    p real_old_password = BCrypt::Password.new(real_old_password)
+    if  new_password == new_password_ver 
+        db.execute("DELETE password FROM users WHERE id IS ?", session[:user_id])
+        p "correct"
+        redirect ('/')
+    end
+end
+=end
 
 post '/new_user' do
     new_name = params[:name]
@@ -74,33 +111,71 @@ get '/' do
 end
 
 get '/start' do
-    db = SQLite3::Database::new("./database/db.db")
-    products = db.execute("SELECT * FROM products")
-    erb(:start, locals: {products: products})
+    if session[:user_id] != nil
+        db = SQLite3::Database::new("./database/db.db")
+        products = db.execute("SELECT * FROM products")
+        erb(:start, locals: {products: products})
+    else
+        redirect('/error_login')
+    end
+end
+
+get '/error_login' do
+    erb(:error_login)
 end
 
 get '/shoppa/?' do
-    db = SQLite3::Database::new("./database/db.db")
-    products = db.execute("SELECT * FROM products")
-    erb(:shoppa, locals: {products: products})
+    if session[:user_id] != nil
+        db = SQLite3::Database::new("./database/db.db")
+        products = db.execute("SELECT * FROM products")
+        erb(:shoppa, locals: {products: products})        
+    else
+        redirect('/error_login')
+    end
 end
 
 get '/new_user/?' do
     erb(:new_user)
 end
 
+get '/all_designers' do
+    if session[:user_id] != nil
+        db = SQLite3::Database::new("./database/db.db")
+        designer = db.execute("SELECT * FROM designers")
+        erb(:all_designers, locals: { designers:designer})
+    else
+        redirect('/error_login')
+    end
+end
+
 get '/designers/:id/?' do
-    db = SQLite3::Database::new("./database/db.db")
-    designer = db.execute("SELECT * FROM designers WHERE id=?",[ params[:id]])
-    designer = designer[0]
-    product = db.execute("SELECT * FROM products WHERE id IN (SELECT product_id FROM 'product_designer_relation' WHERE designer_id=?)", [ params[:id]])
-    erb(:designers, locals: { designers:designer, products:product })
+    if session[:user_id] != nil
+        db = SQLite3::Database::new("./database/db.db")
+        designer = db.execute("SELECT * FROM designers WHERE id=?",[ params[:id]])
+        designer = designer[0]
+        product = db.execute("SELECT * FROM products WHERE id IN (SELECT product_id FROM 'product_designer_relation' WHERE designer_id=?)", [ params[:id]])
+        erb(:designers, locals: { designers:designer, products:product })
+    else
+        redirect('/error_login')
+    end
 end
 
 get '/product/:id/?' do
-    db = SQLite3::Database::new("./database/db.db")
-    product = db.execute("SELECT * FROM products WHERE id=?",[ params[:id]])
-    product = product[0]
-    designer = db.execute("SELECT * FROM designers WHERE id IN (SELECT designer_id FROM 'product_designer_relation' WHERE product_id=?)", [ params[:id]])
-    erb(:product, locals: { products:product, designer:designer})
+    if session[:user_id] != nil
+        db = SQLite3::Database::new("./database/db.db")
+        product = db.execute("SELECT * FROM products WHERE id=?",[ params[:id]])
+        product = product[0]
+        designer = db.execute("SELECT * FROM designers WHERE id IN (SELECT designer_id FROM 'product_designer_relation' WHERE product_id=?)", [ params[:id]])
+        erb(:product, locals: { products:product, designer:designer})
+    else
+        redirect('/error_login')
+    end
+end
+
+get '/konto' do
+    if session[:user_id] != nil
+        erb(:konto)
+    else
+        redirect('/error_login')
+    end
 end

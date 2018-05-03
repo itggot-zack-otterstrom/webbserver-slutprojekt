@@ -23,7 +23,7 @@
                 <a href="/shoppa" class="start_nav">
                     Shoppa
                 </a>
-                <a href="/designers" class="start_nav">
+                <a href="/all_designers" class="start_nav">
                     Designers
                 </a>
                 <a href="/om" class="start_nav">
@@ -35,7 +35,15 @@
                 <a href="/Kundvagn" class="start_nav">
                     Kundvagn
                 </a>
+                <a href="/konto" class="start_nav">
+                    Konto
+                </a>
             <div>
+            <div>
+                <p>Inloggad som 
+                    <a href="/konto"><%=session[:user_name]%></a>
+                </p>
+            </div>
         </div>
     </header>
         <main>

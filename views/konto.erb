@@ -1,0 +1,13 @@
+<div class="div_container">
+    <h1 id="konto_1">Hej <%=session[:user_name]%></h1>
+    <form id="konto_2" action="/logout" method="post">
+        <input type="submit" value="Logout">
+    </form>
+    <h2 id="konto_3">Byt användarnamn</h2>
+    <form id="konto_2" action="/change_name" method="post">
+        <input type="text" name="old_name" placeholder="Gamla namn">
+        <input type="text" name="new_name" placeholder="Nytt namn">
+        <input type="submit" value="Ändra">
+    </form>
+    
+</div>

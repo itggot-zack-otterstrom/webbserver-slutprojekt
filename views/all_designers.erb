@@ -1,0 +1,12 @@
+<div class="div_container">
+    <img id="sell_pic"src="#" alt="People picture" height="auto" width="100%">
+    <h1 class="div_container">Våra produkter</h1>
+    <div class="products">
+        <% designers.each do |item| %>
+            <%="<a href='/designers/#{item[0]}'>"%>
+            <%="<img src='/img/designer#{item[0]}.jpg'>"%> 
+          <%=item[1]%>
+          <%='</a>'%>
+        <% end %>
+    </div>
+</div>
